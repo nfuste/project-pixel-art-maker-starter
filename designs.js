@@ -1,23 +1,27 @@
-// Select color input
-let colorInput = document.querySelector("#colorPicker");
-
 // Select size input
 let sizeInput = document.querySelector("#sizePicker");
-let inputHeight = document.querySelector("#inputHeight");
-let inputWidth = document.querySelector("#inputWidth");
 
 // When size is submitted by the user, call makeGrid()
 sizeInput.addEventListener("submit", makeGrid);
 
 function makeGrid(event) {
-    console.log("Work in progress");
     event.preventDefault();
     let table = document.querySelector("#pixelCanvas");
+
+    // If there is already a table, delete table
+    let children = table.childNodes;
+    
+    for (let i = 0; i < children.length; i++) {
+        table.removeChild(children[i]);
+      }
+
     let tableBody = document.createElement("tbody");
+    let inputHeight = document.querySelector("#inputHeight");
+    let inputWidth = document.querySelector("#inputWidth");
     let height = inputHeight.value;
     let width = inputWidth.value;
 
-    // Create table rows
+    // Otherwise, create table rows
     for (let i = 0; i < height; i++) {
         // Create one row
         let row = document.createElement("tr");
@@ -32,10 +36,13 @@ function makeGrid(event) {
     }
 
     table.appendChild(tableBody);
-
-    
 }
 
-function changeColor() {
-    console.log("hola");
+function changeColor(event) {
+    // Select color input
+    let colorInput = document.querySelector("#colorPicker");
+    
+    // Set color
+    let cell = event.target;
+    cell.style.backgroundColor = colorInput.value;
 }
